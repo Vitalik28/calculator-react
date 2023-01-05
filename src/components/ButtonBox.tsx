@@ -1,4 +1,4 @@
-import React, { ButtonHTMLAttributes } from 'react';
+import React, { ButtonHTMLAttributes, FC } from 'react';
 import Button from './Button';
 
 const btnValues = [
@@ -8,12 +8,33 @@ const btnValues = [
   [1, 2, 3, '+'],
   ['+-', 0, '.', '='],
 ];
+interface ICalc {
+  sign: string;
+  num: number;
+  res: number;
+}
+interface ButtonBoxProps {
+  calc: ICalc;
+  setCalc: (calc: ICalc) => void;
+  allCalc: string;
+  setAllCalc: (str: string) => void;
+}
+const ButtonBox: FC<ButtonBoxProps> = ({
+  calc,
+  setAllCalc,
+  allCalc,
+  setCalc,
+}) => {
+  const numClickHandler = (e: any) => {};
 
-const ButtonBox = () => {
-  const buttonValue = (e: any) => {
-    const value = e.target.innerHTML;
-    console.log(e.target.innertext);
-  };
+  const resetClickHandler = () => {};
+
+  const invertClickHandler = () => {};
+
+  const percentClickHandler = () => {}
+
+  const equalsClickHandler = () => {}
+  
   return (
     <div
       className="button-box"
@@ -35,7 +56,21 @@ const ButtonBox = () => {
               ? 'equals'
               : 'btn'
           }
-          onClick={buttonValue}
+          onClick={
+            btn === 'C'
+              ? resetClickHandler
+              : btn === '+-'
+              ? invertClickHandler
+              : btn === '%'
+              ? percentClickHandler
+              : btn === '='
+              ? equalsClickHandler
+              : btn === '/' || btn === 'X' || btn === '-' || btn === '+'
+              ? signClickHandler
+              : btn === '.'
+              ? commaClickHandler
+              : numClickHandler
+          }
         />
       ))}
     </div>
